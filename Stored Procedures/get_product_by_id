@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION get_product_by_id(pid integer)
+RETURNS TABLE (
+    productid integer,
+    name varchar(100),
+    category varchar(50),
+    price numeric(10,2),
+    quantity integer
+)
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT p.productid, p.name, p.category, p.price, p.quantity
+    FROM product p
+    WHERE p.productid = pid;
+END;
+$$ LANGUAGE plpgsql;

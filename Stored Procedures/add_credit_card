@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION add_credit_card(
+    customer_id int,
+    card_num TEXT,
+    expiration_date DATE
+) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO creditcard (cardnum, customerid, expirationdate)
+    VALUES (card_num, customer_id, expiration_date);
+END;
+$$ LANGUAGE plpgsql;

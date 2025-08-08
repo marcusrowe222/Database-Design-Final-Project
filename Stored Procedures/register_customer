@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION register_customer(
+    p_username VARCHAR,
+    p_password VARCHAR,
+    p_first_name VARCHAR,
+    p_last_name VARCHAR,
+    p_street VARCHAR,
+    p_city VARCHAR,
+    p_state VARCHAR,
+    p_zipcode VARCHAR
+) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO Customer (username, password, firstName, lastName, street, city, state, zipcode)
+    VALUES (p_username, p_password, p_first_name, p_last_name, p_street, p_city, p_state, p_zipcode);
+END;
+$$ LANGUAGE plpgsql;

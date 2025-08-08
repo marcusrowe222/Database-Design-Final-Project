@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION view_credit_cards(customer_id INTEGER)
+RETURNS TABLE(cardNum VARCHAR(20), expirationDate DATE)
+LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+    SELECT c.cardNum, c.expirationDate
+    FROM creditcard c
+    WHERE c.customerID = view_credit_cards.customer_id;
+END;
+$$;

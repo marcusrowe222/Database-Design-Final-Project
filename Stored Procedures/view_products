@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION view_products()
+RETURNS TABLE (
+    productid INT,
+    name VARCHAR(100),
+    category VARCHAR(50),
+    price NUMERIC(10,2),
+    quantity INT
+)
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        p.productid,
+        p.name,
+        p.category,
+        p.price,
+        p.quantity
+    FROM product p
+    ORDER BY p.name;
+END;
+$$ LANGUAGE plpgsql;

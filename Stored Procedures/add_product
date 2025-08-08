@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION add_product(
+    p_name TEXT,
+    p_category TEXT,
+    p_price NUMERIC,
+    p_quantity INT
+) RETURNS VOID AS $$
+BEGIN
+    INSERT INTO product (name, category, price, quantity)
+    VALUES (p_name, p_category, p_price, p_quantity);
+END;
+$$ LANGUAGE plpgsql;

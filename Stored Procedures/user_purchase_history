@@ -1,0 +1,29 @@
+CREATE OR REPLACE FUNCTION user_purchase_history(p_customer_id INT)
+RETURNS TABLE (
+    purchase_id INT,
+    purchase_date DATE,
+    product_id INT,
+    product_name VARCHAR(100),   
+    quantity INT,
+    unit_price NUMERIC,
+    total_price NUMERIC
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        pur.purchaseid,
+        pur.purchasedate,
+        pro.productid,
+        pro.name,
+        pur.quantity,
+        pro.price,
+        pur.quantity * pro.price AS total_price
+    FROM
+        purchase pur
+        JOIN product pro ON pur.productid = pro.productid
+    WHERE
+        pur.customerid = p_customer_id
+    ORDER BY pur.purchasedate DESC;
+END;
+$$ LANGUAGE plpgsql;
+

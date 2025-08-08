@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION create_purchase(
+    p_customer_id INT,
+    p_product_id INT,
+    p_quantity INT,
+    p_card_num VARCHAR
+)
+RETURNS TABLE(success BOOLEAN, message TEXT) AS $$
+
+BEGIN
+   
+    -- Insert into purchase
+    INSERT INTO purchase (customerid, productid, cardnum, quantity, purchasedate)
+    VALUES (p_customer_id, p_product_id, p_card_num, p_quantity, NOW());
+
+    -- Update product quantity
+    UPDATE product
+    SET quantity = quantity - p_quantity
+    WHERE productid = p_product_id;
+
+    RETURN QUERY SELECT TRUE, 'Purchase successful';
+END;
+$$ LANGUAGE plpgsql;

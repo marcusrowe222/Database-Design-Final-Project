@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION remove_credit_card(
+    customer_id int,
+    cardnum text
+) RETURNS VOID AS $$
+BEGIN
+    DELETE FROM creditcard c
+    WHERE c.customerid = remove_credit_card.customer_id
+      AND c.cardnum = remove_credit_card.cardnum;
+END;
+$$ LANGUAGE plpgsql;
